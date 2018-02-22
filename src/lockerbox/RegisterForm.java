@@ -5,6 +5,7 @@
  */
 package lockerbox;
 
+import lockerbox.Models.RegisterModel;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 

@@ -1,4 +1,4 @@
-package lockerbox;
+package lockerbox.Models;
 
 import java.security.MessageDigest;
 

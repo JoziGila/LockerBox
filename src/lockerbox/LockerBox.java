@@ -1,5 +1,7 @@
 package lockerbox;
 
+import lockerbox.Models.DatabaseModel;
+
 public class LockerBox {
 
     public static void main(String[] args) {

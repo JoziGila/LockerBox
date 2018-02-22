@@ -1,5 +1,7 @@
-package lockerbox;
+package lockerbox.Models;
 
+import lockerbox.Models.DatabaseModel;
+import lockerbox.Models.CryptoModel;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
