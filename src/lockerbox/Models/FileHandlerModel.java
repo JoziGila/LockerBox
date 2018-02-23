@@ -34,22 +34,26 @@ public class FileHandlerModel {
                 // Add files to database records
                 System.out.println("Processing files");
                 for (File f : files) {
-                    try {
-                        System.out.println("Inserting into database");
-                        
-                        String query = "INSERT INTO files (filename, filehash, user_id) VALUES(?, ?, ?);";
-                        PreparedStatement st = conn.prepareStatement(query);
-                        st.setString(1, f.getName());
-                        st.setString(2, CryptoModel.getMD5(f));
-                        st.setInt(3, currentUser.id);
-
-                        st.execute();
-                    } catch (Exception e) {
-                        System.out.println("IN FILE " + f.getName() + " EXCEPTION " + e.toString());
-                    }
+                    addFileRecordToDB(f);
                 }
             }
         }).start();
+    }
+    
+    private void addFileRecordToDB(File file){
+        try {
+            System.out.println("Inserting into database");
+
+            String query = "INSERT INTO files (filename, filehash, user_id) VALUES(?, ?, ?);";
+            PreparedStatement st = conn.prepareStatement(query);
+            st.setString(1, file.getName());
+            st.setString(2, CryptoModel.getMD5(file));
+            st.setInt(3, currentUser.id);
+
+            st.execute();
+        } catch (Exception e) {
+            System.out.println("IN FILE " + file.getName() + " EXCEPTION " + e.toString());
+        }
     }
     
     public interface FileHandlerCallback{
