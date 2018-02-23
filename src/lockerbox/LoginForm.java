@@ -7,6 +7,7 @@ package lockerbox;
 
 import lockerbox.Models.LoginModel;
 import javax.swing.JOptionPane;
+import lockerbox.Models.User;
 
 /**
  *
@@ -100,8 +101,9 @@ public class LoginForm extends javax.swing.JFrame {
         if (username.equals("") || password.length == 0){
             JOptionPane.showMessageDialog(this, "Please provide both username and password", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            if (LoginModel.login(username, String.valueOf(password))) {
-                JOptionPane.showMessageDialog(this, "Logged in", "Success", JOptionPane.PLAIN_MESSAGE);
+            User user = LoginModel.login(username, String.valueOf(password));
+            if (user != null) {
+                new MainForm(user).setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Incorrect credentials, please try again", "Error", JOptionPane.ERROR_MESSAGE);
             };

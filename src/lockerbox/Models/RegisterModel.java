@@ -44,7 +44,7 @@ public class RegisterModel {
             String query = "INSERT INTO users (username, password) VALUES(?, ?);";
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, username);
-            st.setString(2, CryptoModel.hashPass(password));
+            st.setString(2, CryptoModel.hashString(password));
             
             st.execute();
             registered = true;

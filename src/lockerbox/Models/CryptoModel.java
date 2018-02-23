@@ -1,10 +1,13 @@
 package lockerbox.Models;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.security.MessageDigest;
 
 
 public class CryptoModel {
-    public static String hashPass(String password) {
+    public static String hashString(String password) {
         String generatedHash = null;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
@@ -23,5 +26,17 @@ public class CryptoModel {
         }
         
         return generatedHash;
+    }
+    
+    public static String getMD5(File file) {
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            String md5 = org.apache.commons.codec.digest.DigestUtils.md5Hex(fis);
+            fis.close();
+            return md5;
+        } catch (Exception e){
+            System.out.println("ERROR WHILE HASHING FILE " + file.getName() + " EX: " + e.toString());
+        }
+        return null;
     }
 }

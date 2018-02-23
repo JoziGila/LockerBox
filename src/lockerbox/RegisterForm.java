@@ -113,6 +113,7 @@ public class RegisterForm extends javax.swing.JFrame {
             if (!RegisterModel.isUsernameTaken(username)){
                 if (RegisterModel.register(username, String.valueOf(pass1))){
                     JOptionPane.showMessageDialog(this, "User registered successfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Something went wrong", "Error", JOptionPane.ERROR_MESSAGE);
                 }

@@ -13,27 +13,31 @@ import java.sql.Statement;
 
 
 public class LoginModel {
-    public static boolean login(String username, String password){
-        String localPass = CryptoModel.hashPass(password);
-        String databasePass = fetchPasswordHash(username);
+    public static User login(String username, String password){
+        String localPass = CryptoModel.hashString(password);
+        User user = fetchUser(username);
         
-        System.out.println(localPass + "\n" + databasePass);
-        
-        return (localPass != null && databasePass != null) && localPass.equals(databasePass);
+        if ((localPass != null && user.password != null) && localPass.equals(user.password)){
+            return user;
+        } else {
+            return null;
+        }
     }
     
-    public static String fetchPasswordHash(String username){
+    public static User fetchUser(String username){
         Connection conn = null;
-        String passHash = null;
+        User user = null;
         
         try {
             conn = DatabaseModel.getConnection();
-            String query = "SELECT password FROM users WHERE username = '" + username + "';";
+            String query = "SELECT id, password FROM users WHERE username = '" + username + "';";
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(query);
             
             if (rs.next()){
-                passHash = rs.getString("password");
+                user = new User();
+                user.id = rs.getInt("id");
+                user.password = rs.getString("password");
             }
             
             conn.close();
@@ -41,6 +45,6 @@ public class LoginModel {
             ex.printStackTrace();
         }
         
-        return passHash;
+        return user;
     }
 }
