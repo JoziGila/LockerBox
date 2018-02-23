@@ -2,6 +2,7 @@ package lockerbox.Models;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DatabaseModel {
@@ -30,7 +31,8 @@ public class DatabaseModel {
         Connection conn = DriverManager.getConnection(url);
         
         String[] tableStatements = {
-            "users (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, username TEXT, password TEXT);"
+            "users (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, username TEXT, password TEXT);",
+            "files (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, filename TEXT, filehash TEXT, user_id INT);"
         };
         
         Statement s = conn.createStatement();
@@ -42,6 +44,5 @@ public class DatabaseModel {
         for(String tableSt : tableStatements){
             s.executeUpdate("CREATE TABLE IF NOT EXISTS " + tableSt);
         }
-
     }
 }

@@ -47,6 +47,8 @@ public class RegisterModel {
             st.setString(2, CryptoModel.hashString(password));
             
             st.execute();
+            
+            FileHandlerModel.initDirectory();
             registered = true;
             
             conn.close();
